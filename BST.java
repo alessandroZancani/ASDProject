@@ -130,9 +130,9 @@ public class BST{
 
             resetWhiteDist();
 
-            System.out.println("il nodo foglia è  "+ n.getLabel());
+            //System.out.println("il nodo foglia è  "+ n.getLabel());
             BFSinBST(g, n, min , max);
-            System.out.println("\n \n");
+            //System.out.println("\n \n");
         }
         
         return g;
@@ -186,18 +186,16 @@ public class BST{
 
         int dist = 0;
 
-        System.out.println("nodo di partenza "+x.getLabel());
+        //System.out.println("nodo di partenza "+x.getLabel());
 
         while(!q.isEmpty()){
             
 
             n = q.dequeue();
 
-            System.out.println("nodo analizzato " + n.getLabel() + "  ha distanza "+n.getDist());
-            //se il predecessore è nullo è il primo passo quindi posso solo salire
+            //System.out.println("nodo analizzato " + n.getLabel() + "  ha distanza "+n.getDist());
 
-            
-
+            //se il predecessore è nullo 
             if(n.getPred() == null){
 
                 if(n.getRight() != null){
@@ -223,7 +221,7 @@ public class BST{
                 
             }else{
                 
-                //se il predecessore è padre del nodo
+                //se il predecessore  padre del nodo
                 // quando scendo a sinistra sommo le occorrenze
                 // quando scendo a destra no
                 if(n.getParent() == n.getPred()){
@@ -236,7 +234,7 @@ public class BST{
                         n.getLeft().setPred(n);
 
                         q.enqueue(n.getLeft());
-                        System.out.println("arrivo da padre e vado a sx aggiungo " +n.getLeft().getLabel()+n.getLeft().getDist() );
+                        //System.out.println("arrivo da padre e vado a sx aggiungo " +n.getLeft().getLabel()+n.getLeft().getDist() );
                     }
 
                     //se scendo a dx
@@ -248,7 +246,7 @@ public class BST{
                         n.getRight().setPred(n);
 
                         q.enqueue(n.getRight());
-                        System.out.println("arrivo da padre e vado a dx aggiungo " + n.getRight().getLabel()+n.getRight().getDist() );
+                        //System.out.println("arrivo da padre e vado a dx aggiungo " + n.getRight().getLabel()+n.getRight().getDist() );
                     }
                 }
 
@@ -266,7 +264,7 @@ public class BST{
                         n.getParent().setPred(n);
 
                         q.enqueue(n.getParent());
-                        System.out.println("arrivo da sx e vado a su aggiungo" + n.getParent().getLabel()+n.getParent().getDist());
+                        //System.out.println("arrivo da sx e vado a su aggiungo" + n.getParent().getLabel()+n.getParent().getDist());
                     }
 
                     //se scendo a dx
@@ -277,7 +275,7 @@ public class BST{
                         n.getRight().setPred(n);
 
                         q.enqueue(n.getRight());
-                        System.out.println("arrivo da sx e vado a dx aggiungo  " +n.getRight().getLabel()+n.getRight().getDist());
+                        //System.out.println("arrivo da sx e vado a dx aggiungo  " +n.getRight().getLabel()+n.getRight().getDist());
                 
                     }
 
@@ -296,7 +294,7 @@ public class BST{
                         n.getParent().setPred(n);
 
                         q.enqueue(n.getParent());
-                        System.out.println("arrivo da dx e vado a su aggiungo" +n.getParent().getLabel()+n.getParent().getDist());
+                        //System.out.println("arrivo da dx e vado a su aggiungo" +n.getParent().getLabel()+n.getParent().getDist());
                     
                     }
 
@@ -308,7 +306,7 @@ public class BST{
                         n.getLeft().setPred(n);
 
                         q.enqueue(n.getLeft());
-                        System.out.println("arrivo da dx e vado a sx aggiungo "+n.getLeft().getLabel() +n.getLeft().getDist());
+                        //System.out.println("arrivo da dx e vado a sx aggiungo "+n.getLeft().getLabel() +n.getLeft().getDist());
                     
                     }
                 }
@@ -319,7 +317,7 @@ public class BST{
 
             if(n.isLeaf() && n.getDist() <= max && n.getDist() >= min && x.getLabel() != n.getLabel()){
                 g.addEdge(x.getLabel(), n.getLabel() );
-                System.out.println ("\n ora aggiungo l' arco : "+x.getLabel()+ " " + n.getLabel()+ "  "+ n.getDist() +"\n");
+                //System.out.println ("\n ora aggiungo l' arco : "+x.getLabel()+ " " + n.getLabel()+ "  "+ n.getDist() +"\n");
             }   
 
         }

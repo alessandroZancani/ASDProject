@@ -1,3 +1,5 @@
+
+
 public class Graph{
     
 
@@ -8,7 +10,7 @@ public class Graph{
 
     public Graph(int x){
         this.vertex = new char[x];
-        this.edges = new Edge[(x*(x-1))/2];
+        this.edges = new Edge[(x*(x-1))];
         this.nodeCounter = 0;
         this.edgeCounter = 0;
     }
@@ -26,24 +28,56 @@ public class Graph{
 
     public void printGraph(){
 
-        System.out.println("\n Questi sono i nodi \n ");
 
-        for(int i = 0; i < this.nodeCounter; i++){
-            System.out.print(vertex[i] + " ");
-        }
+        char c1;
+        char c2;
+        int x;
+        int y;
 
-        System.out.println("\n \n Questi sono gli archi \n ");
+        System.out.println(nodeCounter + "  "+ edgeCounter/2);
+        System.out.println("graph G {");
+		for (int i = 0; i < this.nodeCounter; i++) {
+                System.out.println("" + i + " [label=\""+ vertex[i] + "\"];");
+		}
 
-        if(this.edgeCounter == 0){
-            System.out.print("Non ci sono archi");
-        }else{
+       
+
+        if(this.edgeCounter != 0){
             for(int i = 0; i < this.edgeCounter; i++){
-                edges[i].printEdge();
-                System.out.print("   ");
+                //stampa solo gli alberi con etichetta crescente
+                c1 = edges[i].getNode1();
+
+                c2 = edges[i].getNode2();
+
+                x = searchNode(c1);
+                y = searchNode(c2);
+
+                if(x < y){
+                    System.out.println(x +" -- "+y+";");
+                }
+
+            
             }
         }
 
+        System.out.println("}");
+
     }
+
+
+    public int searchNode(char c){
+        int i= 0;
+        
+        while(vertex[i] != c){
+            i++;
+        }
+
+        return i;
+
+    }
+    
+
+    
 
     
 
