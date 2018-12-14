@@ -130,8 +130,9 @@ public class BST{
 
             resetWhiteDist();
 
+            System.out.println("il nodo foglia è  "+ n.getLabel());
             BFSinBST(g, n, min , max);
-
+            System.out.println("\n \n");
         }
         
         return g;
@@ -163,7 +164,7 @@ public class BST{
 
             if(n.getRight() != null)
                 q.enqueue(n.getRight());
-            
+           
         }
 
 
@@ -181,45 +182,168 @@ public class BST{
         BSTNode x = n;
 
         n.setDist(0);
+        n.setColor('g');
 
+        int dist = 0;
 
-        while(!q.isEmpty() && n.getDist() < max){
+        System.out.println("nodo di partenza "+x.getLabel());
+
+        while(!q.isEmpty()){
             
+
             n = q.dequeue();
+
+            System.out.println("nodo analizzato " + n.getLabel() + "  ha distanza "+n.getDist());
+            //se il predecessore è nullo è il primo passo quindi posso solo salire
+
             
 
-            if(n.getParent() != null && n.getParent().getColor() == 'w'){
+            if(n.getPred() == null){
 
-                q.enqueue(n.getParent());
-                n.getParent().setDist(n.getDist() + n.getOcc());
-                n.getParent().setColor('g');
+                if(n.getRight() != null){
 
+                    dist = n.getOcc() + n.getRight().getOcc()-1;
+                    n.getRight().setDist(dist);
+                    n.getRight().setColor('g');
+                    n.getRight().setPred(n);
+                
+                    q.enqueue(n.getRight());
+                }
+
+                if(n.getParent()!= null){
+
+                    dist = n.getOcc()+ n.getParent().getOcc()-1;
+                    n.getParent().setDist(dist);
+                    n.getParent().setColor('g');
+                    n.getParent().setPred(n);
+
+                    q.enqueue(n.getParent());
+                }
+            
+                
+            }else{
+                
+                //se il predecessore è padre del nodo
+                // quando scendo a sinistra sommo le occorrenze
+                // quando scendo a destra no
+                if(n.getParent() == n.getPred()){
+
+                    //se scendo a sx
+                    if(n.getLeft() != null && n.getLeft().getColor() == 'w'){
+                        dist = n.getDist()+n.getOcc()+ n.getLeft().getOcc()-1;
+                        n.getLeft().setDist(dist);
+                        n.getLeft().setColor('g');
+                        n.getLeft().setPred(n);
+
+                        q.enqueue(n.getLeft());
+                        System.out.println("arrivo da padre e vado a sx aggiungo " +n.getLeft().getLabel()+n.getLeft().getDist() );
+                    }
+
+                    //se scendo a dx
+                    if(n.getRight() != null && n.getRight().getColor() == 'w'){
+
+                        dist = n.getDist() - n.getOcc()+ n.getRight().getOcc() +1;
+                        n.getRight().setDist(dist);
+                        n.getRight().setColor('g');
+                        n.getRight().setPred(n);
+
+                        q.enqueue(n.getRight());
+                        System.out.println("arrivo da padre e vado a dx aggiungo " + n.getRight().getLabel()+n.getRight().getDist() );
+                    }
+                }
+
+
+                //se il predecessore è un figlio sx
+                //quando salgo sommo sia le sue occorrenze che quelle del padre
+                //quando vado a destra solo le sue occorrenze 
+                if(n.getPred() == n.getLeft()){
+
+                    //se salgo
+                    if(n.getParent() != null && n.getParent().getColor() == 'w'){
+                        dist = n.getDist()+ n.getParent().getOcc();
+                        n.getParent().setDist(dist);
+                        n.getParent().setColor('g');
+                        n.getParent().setPred(n);
+
+                        q.enqueue(n.getParent());
+                        System.out.println("arrivo da sx e vado a su aggiungo" + n.getParent().getLabel()+n.getParent().getDist());
+                    }
+
+                    //se scendo a dx
+                    if(n.getRight() != null && n.getRight().getColor() == 'w'){
+                        dist = n.getDist()+ n.getRight().getOcc();
+                        n.getRight().setDist(dist);
+                        n.getRight().setColor('g');
+                        n.getRight().setPred(n);
+
+                        q.enqueue(n.getRight());
+                        System.out.println("arrivo da sx e vado a dx aggiungo  " +n.getRight().getLabel()+n.getRight().getDist());
+                
+                    }
+
+                }
+
+                //se il predecessore è un figlio dx
+                //quando salgo sommo sia le sue occorrenze che quelle del padre
+                //quando vado a destra solo le sue occorrenze 
+                if(n.getPred() == n.getRight() ){
+            
+                    //se salgo
+                    if(n.getParent() != null && n.getParent().getColor() == 'w'){
+                        dist = n.getDist() - n.getOcc() + n.getParent().getOcc() +1;
+                        n.getParent().setDist(dist);
+                        n.getParent().setColor('g');
+                        n.getParent().setPred(n);
+
+                        q.enqueue(n.getParent());
+                        System.out.println("arrivo da dx e vado a su aggiungo" +n.getParent().getLabel()+n.getParent().getDist());
+                    
+                    }
+
+                    //se scendo a sx
+                    if(n.getLeft() != null && n.getLeft().getColor() == 'w'){
+                        dist = n.getDist()+n.getLeft().getOcc();
+                        n.getLeft().setDist(dist);
+                        n.getLeft().setColor('g');
+                        n.getLeft().setPred(n);
+
+                        q.enqueue(n.getLeft());
+                        System.out.println("arrivo da dx e vado a sx aggiungo "+n.getLeft().getLabel() +n.getLeft().getDist());
+                    
+                    }
+                }
             }
 
-            if(n.getLeft() != null && n.getLeft().getColor() == 'w'){
-
-                q.enqueue(n.getLeft());
-                n.getLeft().setDist(n.getDist()+ 1);
-                n.getLeft().setColor('g');
-
-            }
-
-            if(n.getRight() != null && n.getRight().getColor() == 'w'){
-
-                q.enqueue(n.getRight());
-                n.getRight().setDist(n.getDist()+ n.getOcc());
-                n.getRight().setColor('g');
-
-            }
 
 
-            if(n.isLeaf() && n.getDist()< max && n.getDist()> min && x.getLabel() != n.getLabel()){
+
+            if(n.isLeaf() && n.getDist() <= max && n.getDist() >= min && x.getLabel() != n.getLabel()){
                 g.addEdge(x.getLabel(), n.getLabel() );
-            }
+                System.out.println ("\n ora aggiungo l' arco : "+x.getLabel()+ " " + n.getLabel()+ "  "+ n.getDist() +"\n");
+            }   
+
+        }
 
 
-            
+    }
 
+    public void printOcc(){
+
+        BSTNode n = this.root;
+        MyQueue q = new MyQueue();
+
+        q.enqueue(n);
+
+        while(!q.isEmpty()){
+            n = q.dequeue();
+            System.out.print(n.getLabel());
+            System.out.print(n.getOcc() + " ");
+
+            if(n.getLeft() != null)
+                q.enqueue(n.getLeft());
+
+            if(n.getRight() != null)
+                q.enqueue(n.getRight());
         }
 
 

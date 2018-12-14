@@ -10,6 +10,7 @@ public class BSTNode{
     //parametri aggiuntivi per la visita
     private char color;
     private int dist;
+    private BSTNode pred;
 
 
     public BSTNode(char c){
@@ -21,9 +22,24 @@ public class BSTNode{
         resetVisit();
     }
 
-    public void resetVisit(){
+    /**
+     * @return the pred
+     */
+    public BSTNode getPred() {
+        return pred;
+    }
+
+    /**
+     * @param pred the pred to set
+     */
+    public void setPred(BSTNode pred) {
+        this.pred = pred;
+    }
+
+    public void resetVisit() {
         this.color = 'w';
         this.dist = -1;
+        this.pred = null;
     }
 
 

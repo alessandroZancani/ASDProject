@@ -5,12 +5,19 @@ public class ASDProject{
 
     //97a 122z
     public static void main(String[] args){
-        String s = "cicciopasticcio";
+        String s = "cicciopasticcior";
         BST bst = new BST(s);
         System.out.println("inOrder visit del albero non compresso \n"+bst.inOrderVisit()+"\n \n");
 
+        bst.printOcc();
+
+        System.out.println("\n \n");
+
         bst.copressTree();
 
+        bst.printOcc();
+
+        System.out.println("\n \n");
         System.out.println("inOrder visit del albero compresso \n"+bst.inOrderVisit()+"\n");
         int[] occ = new int[26];
         int temp = 0;
@@ -81,8 +88,8 @@ public class ASDProject{
         */
 
 
-        //search leaf test
-        /*
+        /*search leaf test
+        
         BSTNode a;
         MyQueue q = bst.searchLeaf();
 
@@ -96,7 +103,7 @@ public class ASDProject{
         }
 
         */
-        System.out.println("\n \n \n");
+        System.out.println("\n");
 
         /*test white
         bst.resetWhiteDist();
