@@ -12,34 +12,34 @@ public class Edge{
     /**
      * @return the node1
      */
-    public BSTNode getNode1() {
+    public char getNode1() {
         return this.node1;
     }
 
     /**
      * @return the node2
      */
-    public BSTNode getNode2() {
+    public char getNode2() {
         return this.node2;
     }
 
     /**
      * @param node2 the node2 to set
      */
-    public void setNode2(BSTNode node) {
+    public void setNode2(char node) {
         this.node2 = node;
     }
 
     /**
      * @param node1 the node1 to set
      */
-    public void setNode1(BSTNode node) {
+    public void setNode1(char node) {
         this.node1 = node;
     }
 
     public void printEdge(){
         System.out.print(this.node1);
-        System.out.print(this.node2);
+        System.out.print(this.node2 + " ");
     }
     
 }
